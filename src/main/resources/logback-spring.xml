@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+<!-- Console Appender with Correlation ID -->
+<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{correlationId}] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+</appender>
+
+<!-- File Appender -->
+<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/kafka-app.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>logs/kafka-app.%d{yyyy-MM-dd}.log</fileNamePattern>
+        <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{correlationId}] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+</appender>
+
+<!-- Application Logs -->
+<logger name="com.vbforge.kafkaapp" level="DEBUG"/>
+
+<!-- Kafka Logs - Reduce verbosity -->
+<logger name="org.apache.kafka" level="WARN"/>
+<logger name="org.apache.kafka.clients.NetworkClient" level="ERROR"/>
+<logger name="org.apache.kafka.clients.consumer.internals" level="WARN"/>
+
+<!-- Spring Kafka Logs -->
+<logger name="org.springframework.kafka" level="WARN"/>
+
+<root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+</root>
+
+</configuration>

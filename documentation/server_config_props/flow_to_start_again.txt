@@ -1,0 +1,6 @@
+--- If the Kafka server becomes unavailable, follow these steps to restore it: ---
+1) provide this props
+2) change cluster ID
+3) start kafka server
+4) create needed topics from all phases
+5) test endpoints by postman
